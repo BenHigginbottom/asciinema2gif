@@ -1,4 +1,4 @@
-## asciinema2gif
+## asciinema2mp4
 
 Generate animated GIFs from [asciinema terminal recordings].
 
