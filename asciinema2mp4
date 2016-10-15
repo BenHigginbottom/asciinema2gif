@@ -7,7 +7,7 @@ set -e
 
 readonly program="$(basename "${0}")"
 readonly rundir="$(cd "$(dirname "${0}")" && pwd -P)"
-readonly tempdir="$(mktemp -d -t asciinema2gif.XXXX)"
+readonly tempdir="$(mktemp -d -t asciinema2mp4.XXXX)"
 readonly asciinema_api='https://asciinema.org/api/asciicasts'
 
 # Check for dependencies.
@@ -121,7 +121,7 @@ echo '>> Generating MP4…'
 ffmpeg -i frames/%08.png asciicast.mp4
 
 cd - >/dev/null
-mv "${tempdir}/asciicast.gif" "${output_file}"
+mv "${tempdir}/asciicast.mp4" "${output_file}"
 
 if [ -z "$bucket_name" ];
 	echo ">> Generated in: ${output_file}"
