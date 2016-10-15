@@ -74,6 +74,10 @@ while [[ "${1}" ]]; do
       output_file="${2}"
       shift
       ;;
+    -b | --bucket)
+      bucket_name="${2}"
+      shift
+      ;;
     -*)
       syntax_error "unrecognized option: ${1}"
       ;;
@@ -118,4 +122,10 @@ ffmpeg -i frames/%08.png asciicast.mp4
 
 cd - >/dev/null
 mv "${tempdir}/asciicast.gif" "${output_file}"
-echo ">> Generated in: ${output_file}"
+
+if [ -z "$bucket_name" ];
+	echo ">> Generated in: ${output_file}"
+else
+	echo ">> ${output_file} generated, uploading to S3"
+	aws s3 cp ${output_file} s3://$(bucket_name) 
+fi
